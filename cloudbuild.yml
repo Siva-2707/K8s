@@ -1,21 +1,34 @@
 steps:
-  # Step 1: Build the first Docker image (data-validator)
-  - name: 'gcr.io/cloud-builders/docker'
-    args:
-      - 'build'
-      - '-t'
-      - 'us-central1-docker.pkg.dev/k8s-assignement/my-repository/container-1'
-      - './data-validator/'
+  # Step 1: Clone the repository from GitHub
+  - name: 'gcr.io/cloud-builders/git'
+    args: ['clone', 'https://git.cs.dal.ca/courses/2025-winter/csci-4145_5409/balamurali.git']
 
-  # Step 2: Build the second Docker image (data-processor)
+  # Step 2: Build the Docker image
   - name: 'gcr.io/cloud-builders/docker'
-    args:
-      - 'build'
-      - '-t'
-      - 'us-central1-docker.pkg.dev/k8s-assignement/my-repository/container-2'
-      - 'data-processor/'
+    args: ['build', '-t', 'gcr.io/k8s-assignement/my-repository/container1:latest', '.K8s/data-validator/']
 
-# Push images to Artifact Registry
-images:
-  - 'us-central1-docker.pkg.dev/k8s-assignement/my-repository/container-1'
-  - 'us-central1-docker.pkg.dev/k8s-assignement/my-repository/container-2'
+  # Step 3: Push the Docker image to Artifact Registry
+  - name: 'gcr.io/cloud-builders/docker'
+    args: [ 'build', '-t', 'gcr.io/k8s-assignement/my-repository/container2:latest', '.K8s/data-processor/' ]
+
+  # Step 4: Push the Docker image to Artifact Registry
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['push', 'gcr.io/k8s-assignement/my-repository/container1:latest']
+
+  # Step 5: Push the Docker image to Artifact Registry
+  - name: 'gcr.io/cloud-builders/docker'
+    args: [ 'push', 'gcr.io/k8s-assignement/my-repository/container2:latest' ]
+
+  # Step 6: Push the Docker image to Artifact Registry
+  - name: 'gcr.io/cloud-builders/gcloud'
+    args: ['container', 'clusters','get-credentials','gke-cluster','--zone','us-central1-a','--project', 'k8s-assignement']
+    id: 'auth-k8s'
+
+  # Step 7: Deploy the Docker image to Kubernetes pods using kubectl
+  - name: 'gcr.io/cloud-builders/kubectl'
+    args: [ 'apply', '-f', 'deployment.yml' ]
+    env:
+      - 'CLOUDSDK_COMPUTE_ZONE=us-central1-a'
+      - 'CLOUDSDK_CONTAINER_CLUSTER=gke-cluster'
+      - 'CLOUDSDK_CORE_PROJECT=k8s-assignement'
+    waitFor: ['auth-k8s']

@@ -1,0 +1,79 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: container1
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: container1
+  template:
+    metadata:
+      labels:
+        app: container1
+    spec:
+      containers:
+        - name: container1
+          image: us-central1-docker.pkg.dev/k8s-assignement/my-repository/container1:latest
+          ports:
+            - containerPort: 8080
+          volumeMounts:
+            - mountPath: "/app/files"
+              name: gke-storage
+      volumes:
+        - name: gke-storage
+#          persistentVolumeClaim:
+#            claimName: gke-pvc
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: container2
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: container2
+  template:
+    metadata:
+      labels:
+        app: container2
+    spec:
+      containers:
+        - name: container2
+          image: us-central1-docker.pkg.dev/k8s-assignement/my-repository/container2:latest
+          ports:
+            - containerPort: 6060
+          volumeMounts:
+            - mountPath: "/app/files"
+              name: gke-storage
+      volumes:
+        - name: gke-storage
+    #          persistentVolumeClaim:
+    #            claimName: gke-pvc
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: container1-service
+spec:
+  selector:
+    app: container1
+  ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: 8080
+  type: NodePort
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: container2-service
+spec:
+  selector:
+    app: container2
+  ports:
+    - protocol: TCP
+      port: 6060
+      targetPort: 6060
+  type: ClusterIP
