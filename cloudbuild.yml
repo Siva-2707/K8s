@@ -1,7 +1,7 @@
 steps:
   # Step 1: Clone the repository from GitHub
   - name: 'gcr.io/cloud-builders/git'
-    args: ['clone', 'https://git.cs.dal.ca/courses/2025-winter/csci-4145_5409/balamurali.git']
+    args: ['clone', 'https://github.com/Siva-2707/K8s.git']
 
   # Step 2: Build the Docker image
   - name: 'gcr.io/cloud-builders/docker'
