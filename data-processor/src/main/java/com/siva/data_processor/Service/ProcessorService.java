@@ -31,7 +31,7 @@ public class ProcessorService {
                     .stream()
                     .map(Arrays::asList)
                     .filter(e -> e.get(0).compareTo(product) == 0)
-                    .mapToInt(e -> Integer.parseInt(e.get(1)))
+                    .mapToInt(e -> Integer.parseInt(e.get(1).trim()))
                     .sum();
             response.put("sum",sum);
         }

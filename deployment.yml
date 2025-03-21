@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: container1
 spec:
-  replicas: 1
+  replicas: 2
   selector:
     matchLabels:
       app: container1
@@ -31,7 +31,7 @@ kind: Deployment
 metadata:
   name: container2
 spec:
-  replicas: 1
+  replicas: 2
   selector:
     matchLabels:
       app: container2

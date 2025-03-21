@@ -13,6 +13,12 @@ public class FileService {
 
     public Map<String,Object> storeFile(FileInput fileInput){
         Map<String,Object> response = new HashMap<>();
+
+        //Checking if the directory exists.
+        File dir = new File("./files/");
+        if(!dir.exists()){
+            dir.mkdir();
+        }
         String fileName = fileInput.getFile();
         if(fileName == null || fileName.compareTo("") == 0){
             response.put("file",null);
@@ -21,9 +27,9 @@ public class FileService {
         }
         String data = fileInput.getData();
         //Creating new file with the data.
-        try(FileWriter writer = new FileWriter("./files/"+fileName)){
+        File file = new File("./files/"+fileName);
+        try(FileWriter writer = new FileWriter(file)){
            writer.write(data);
-           //Store data into persistent storage.
         }
         catch (Exception e){
             e.printStackTrace();
