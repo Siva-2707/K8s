@@ -1,0 +1,20 @@
+networks:
+  container_network:
+    driver: bridge
+
+services:
+  data-processor:
+    image: 9626492176/data-processor:latest
+    volumes:
+      - .:/app/files
+    ports:
+      - "6060:6060"
+    networks:
+      - container_network
+
+  data-validator:
+    image: 9626492176/data-validator:latest
+    ports:
+      - "6000:8080"
+    networks:
+      - container_network
