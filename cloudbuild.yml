@@ -1,0 +1,21 @@
+steps:
+  # Step 1: Build the first Docker image (data-validator)
+  - name: 'gcr.io/cloud-builders/docker'
+    args:
+      - 'build'
+      - '-t'
+      - 'us-central1-docker.pkg.dev/k8s-assignement/my-repository/container-1'
+      - './data-validator/'
+
+  # Step 2: Build the second Docker image (data-processor)
+  - name: 'gcr.io/cloud-builders/docker'
+    args:
+      - 'build'
+      - '-t'
+      - 'us-central1-docker.pkg.dev/k8s-assignement/my-repository/container-2'
+      - 'data-processor/'
+
+# Push images to Artifact Registry
+images:
+  - 'us-central1-docker.pkg.dev/k8s-assignement/my-repository/container-1'
+  - 'us-central1-docker.pkg.dev/k8s-assignement/my-repository/container-2'
