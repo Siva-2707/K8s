@@ -15,6 +15,7 @@ spec:
       containers:
         - name: container1
           image: us-central1-docker.pkg.dev/k8s-assignement/my-repository/container1:latest
+          imagePullPolicy: Always
           ports:
             - containerPort: 8080
           volumeMounts:
@@ -42,6 +43,7 @@ spec:
       containers:
         - name: container2
           image: us-central1-docker.pkg.dev/k8s-assignement/my-repository/container2:latest
+          imagePullPolicy: Always
           ports:
             - containerPort: 6060
           volumeMounts:
