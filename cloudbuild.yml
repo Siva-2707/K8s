@@ -5,19 +5,19 @@ steps:
 
   # Step 2: Build the Docker image
   - name: 'gcr.io/cloud-builders/docker'
-    args: ['build', '-t', 'my-repository/k8s-assignement/container1:latest', './K8s/data-validator/']
+    args: ['build', '-t', 'gcr.io/k8s-assignement/my-repository/container1:latest', './K8s/data-validator/']
 
   # Step 3: Push the Docker image to Artifact Registry
   - name: 'gcr.io/cloud-builders/docker'
-    args: [ 'build', '-t', 'my-repository/k8s-assignement/container2:latest', './K8s/data-processor/' ]
+    args: [ 'build', '-t', 'gcr.io/k8s-assignement/my-repository/container2:latest', './K8s/data-processor/' ]
 
   # Step 4: Push the Docker image to Artifact Registry
   - name: 'gcr.io/cloud-builders/docker'
-    args: ['push', 'my-repository/k8s-assignement/container1:latest']
+    args: ['push', 'gcr.io/k8s-assignement/my-repository/container1:latest']
 
   # Step 5: Push the Docker image to Artifact Registry
   - name: 'gcr.io/cloud-builders/docker'
-    args: [ 'push', 'my-repository/k8s-assignement/container2:latest' ]
+    args: [ 'push', 'gcr.io/k8s-assignement/my-repository/container2:latest' ]
 
   # Step 6: Push the Docker image to Artifact Registry
   - name: 'gcr.io/cloud-builders/gcloud'
