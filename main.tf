@@ -12,7 +12,7 @@ resource "google_container_cluster" "gke_cluster" {
   min_master_version = "latest"
   deletion_protection = false
   node_config {
-    machine_type = "e2-micro"
+    machine_type = "e2-small"
     image_type   = "COS_CONTAINERD"
     disk_type    = "pd-standard"
     disk_size_gb = 10
