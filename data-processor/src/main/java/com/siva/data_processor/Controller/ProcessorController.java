@@ -16,7 +16,7 @@ public class ProcessorController {
 
     @PostMapping("/calculateSum")
     public Map<String, Object> processSum(@RequestBody  Map<String, Object> input){
-        System.out.println("In controller");
+        System.out.println("In the controller");
         return processorService.processSum(input);
     }
 
