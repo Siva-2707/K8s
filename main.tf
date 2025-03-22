@@ -1,10 +1,11 @@
+#Defining Provider
 provider "google" {
   project = "k8s-assignement"
   region  = "us-central1"
   credentials = "/Users/siva/keys/gcp/k8s-assignement-500cdb2e0cc6.json"
 }
 
-# Step 1: Create a GKE cluster
+#Creating GKE Cluster
 resource "google_container_cluster" "gke_cluster" {
   name               = "gke-cluster"
   location           = "us-central1-a"
@@ -23,7 +24,7 @@ resource "google_container_cluster" "gke_cluster" {
   }
 }
 
-# Step 2: Create an Artifact Registry repository
+#Creating Artifact Registry repository
 resource "google_artifact_registry_repository" "artifact_registry_repo" {
   repository_id = "my-repository"
   format = "DOCKER"
@@ -31,19 +32,10 @@ resource "google_artifact_registry_repository" "artifact_registry_repo" {
   project = "k8s-assignement"
 }
 
-# Step 4: Create a Persistent Volume for GKE
+#Creating compute disk
 resource "google_compute_disk" "gke_pv" {
   name  = "gke-pv"
   size  = 10
   type  = "pd-standard"
   zone  = "us-central1-a"
 }
-
-
-# output "gke_cluster_name" {
-#   value = google_container_cluster.gke_cluster.name
-# }
-#
-# output "gke_cluster_endpoint" {
-#   value = google_container_cluster.gke_cluster.endpoint
-# }
