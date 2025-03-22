@@ -6,7 +6,7 @@ spec:
   capacity:
     storage: 10Gi
   accessModes:
-    - ReadWriteOnce
+    - ReadWriteMany
   persistentVolumeReclaimPolicy: Retain
   storageClassName: standard
   gcePersistentDisk:
@@ -20,7 +20,7 @@ metadata:
 spec:
   storageClassName: standard
   accessModes:
-    - ReadWriteOnce
+    - ReadWriteMany
   resources:
     requests:
       storage: 10Gi

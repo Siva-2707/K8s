@@ -12,10 +12,10 @@ resource "google_container_cluster" "gke_cluster" {
   min_master_version = "latest"
   deletion_protection = false
   node_config {
-    machine_type = "e2-small"
+    machine_type = "e2-medium"
     image_type   = "COS_CONTAINERD"
     disk_type    = "pd-standard"
-    disk_size_gb = 10
+    disk_size_gb = 50
 
     oauth_scopes = [
       "https://www.googleapis.com/auth/cloud-platform",
@@ -38,39 +38,6 @@ resource "google_compute_disk" "gke_pv" {
   type  = "pd-standard"
   zone  = "us-central1-a"
 }
-#
-# resource "kubernetes_persistent_volume" "k8s_persistent_volume" {
-#   metadata {
-#     name = "gke-pv-disk"
-#   }
-#   spec {
-#     capacity = {
-#       storage = "10Gi"
-#     }
-#     access_modes = ["ReadWriteMany"]
-#     persistent_volume_source {
-#       gce_persistent_disk {
-#         pd_name = google_compute_disk.gke_pv.name
-#       }
-#     }
-#   }
-# }
-#
-# # # Step 5: Create a Persistent Volume Claim for GKE
-# resource "kubernetes_persistent_volume_claim" "gke_pvc" {
-#   metadata {
-#     name = "gke-pvc"
-#   }
-#   spec {
-#     access_modes = ["ReadWriteMany"]
-#     resources {
-#       requests = {
-#         storage = "10Gi"
-#       }
-#     }
-#     volume_name = kubernetes_persistent_volume.k8s_persistent_volume.metadata[0].name
-#   }
-# }
 
 
 # output "gke_cluster_name" {
