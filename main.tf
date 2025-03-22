@@ -32,12 +32,12 @@ resource "google_artifact_registry_repository" "artifact_registry_repo" {
 }
 
 # Step 4: Create a Persistent Volume for GKE
-# resource "google_compute_disk" "gke_pv" {
-#   name  = "gke-pv"
-#   size  = 10
-#   type  = "pd-standard"
-#   zone  = "us-central1-a"
-# }
+resource "google_compute_disk" "gke_pv" {
+  name  = "gke-pv"
+  size  = 10
+  type  = "pd-standard"
+  zone  = "us-central1-a"
+}
 #
 # resource "kubernetes_persistent_volume" "k8s_persistent_volume" {
 #   metadata {
