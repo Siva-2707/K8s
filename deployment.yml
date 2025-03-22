@@ -43,8 +43,8 @@ spec:
     spec:
       containers:
         - name: container1
-#          image: us-central1-docker.pkg.dev/k8s-assignement/my-repository/container1:latest
-          image: 9626492176/data-validator:latest
+          image: us-central1-docker.pkg.dev/k8s-assignement/my-repository/container1:latest
+#          image: 9626492176/data-validator:latest
           imagePullPolicy: Always
           ports:
             - containerPort: 8080
@@ -74,8 +74,8 @@ spec:
     spec:
       containers:
         - name: container2
-          #          image: us-central1-docker.pkg.dev/k8s-assignement/my-repository/container2:latest
-          image: 9626492176/data-processor:latest
+          image: us-central1-docker.pkg.dev/k8s-assignement/my-repository/container2:latest
+#          image: 9626492176/data-processor:latest
           imagePullPolicy: Always
           ports:
             - containerPort: 6060
