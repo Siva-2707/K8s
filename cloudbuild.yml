@@ -32,3 +32,5 @@ steps:
       - 'CLOUDSDK_CONTAINER_CLUSTER=gke-cluster'
       - 'CLOUDSDK_CORE_PROJECT=k8s-assignement'
     waitFor: ['auth-k8s']
+options:
+  logging: 'CLOUD_LOGGING_ONLY'
