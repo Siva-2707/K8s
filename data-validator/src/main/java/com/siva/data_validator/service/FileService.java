@@ -15,7 +15,7 @@ public class FileService {
         Map<String,Object> response = new HashMap<>();
 
         //Checking if the directory exists.
-        File dir = new File("./files/");
+        File dir = new File("/sivarajesh_PV_dir/");
         if(!dir.exists()){
             dir.mkdir();
         }
@@ -27,7 +27,7 @@ public class FileService {
         }
         String data = fileInput.getData();
         //Creating new file with the data.
-        File file = new File("./files/"+fileName);
+        File file = new File("/sivarajesh_PV_dir/"+fileName);
         try(FileWriter writer = new FileWriter(file)){
            writer.write(data);
         }

@@ -18,7 +18,7 @@ public class ProcessorService {
         Map<String,Object> response = new HashMap<>();
         String fileName = (String) input.get("file");
         response.put("file",fileName);
-        try(FileReader reader = new FileReader("./files/"+fileName)){
+        try(FileReader reader = new FileReader("/sivarajesh_PV_dir/"+fileName)){
             List<String[]> records = new CSVReader(reader).readAll();
 
             if(!validateCSV(records)){

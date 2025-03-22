@@ -16,8 +16,8 @@ public class CalculateService {
     @Autowired
     ValidatorService validatorService;
 
-    @Value("${server.port}")
-    int port;
+//    @Value("${server.port}")
+//    int port;
 
     RestTemplate restTemplate = new RestTemplate();
 
@@ -30,9 +30,9 @@ public class CalculateService {
             response.put("error","Invalid JSON input.");
         }
         else{
-            if(port == 8080)
-                response =  restTemplate.postForObject("http://localhost:6060/calculateSum",input,response.getClass());
-            else
+//            if(port == 8080)
+//                response =  restTemplate.postForObject("http://localhost:6060/calculateSum",input,response.getClass());
+//            else
                 response =  restTemplate.postForObject("http://data-processor:6060/calculateSum",input,response.getClass());
         }
         return response;
